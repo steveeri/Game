@@ -198,7 +198,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             elapsed = (System.nanoTime() - missileStartTime) / Missile.MS;
 
-            // If elasped time then add missiles.. relative to the screen width, and random position.
+            // If elapsed time then add missiles.. relative to the screen width, and random position.
             if (elapsed > 2000 - (player.getScore() / 4)) {
 
                 // First missile is centred...
@@ -317,7 +317,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             if(!player.isPlaying() && !player.isCollided()) this.drawText(canvas);
 
-            // Draw all smoke puffs stored in the arraylist<Smoke>
+            // Draw all smoke puffs stored in the arraylist <Smoke>
             for (Smoke sp: smokePuffs) {
                 sp.draw(canvas, player.isGoingUp());
             }
