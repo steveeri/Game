@@ -24,17 +24,11 @@ public class Score extends GameObject {
         if (numDigits <= 0) numDigits = 1;
 
         spriteSheet = res;
+
         image = new Bitmap[10];
-        image[0] = Bitmap.createBitmap(spriteSheet, 0, 0, width, height);
-        image[1] = Bitmap.createBitmap(spriteSheet, 30, 0, width, height);
-        image[2] = Bitmap.createBitmap(spriteSheet, 55, 0, width, height);
-        image[3] = Bitmap.createBitmap(spriteSheet, 85, 0, width, height);
-        image[4] = Bitmap.createBitmap(spriteSheet, 115, 0, width, height);
-        image[5] = Bitmap.createBitmap(spriteSheet, 143, 0, width, height);
-        image[6] = Bitmap.createBitmap(spriteSheet, 171, 0, width, height);
-        image[7] = Bitmap.createBitmap(spriteSheet, 201, 0, width, height);
-        image[8] = Bitmap.createBitmap(spriteSheet, 230, 0, width, height);
-        image[9] = Bitmap.createBitmap(spriteSheet, 257, 0, width, height);
+        for (int i = 0; i < 10; i++) {
+            image[i] = Bitmap.createBitmap(spriteSheet, i * width, 0, width, height);
+        }
     }
 
     @Override
@@ -62,10 +56,7 @@ public class Score extends GameObject {
 
         try {
             for (int i = 0; i < numDigits; i++) {
-
-                int xLocn = posX + (i*width);
-                if (i > 0) xLocn += numGap;
-
+                int xLocn = posX + (i*width) + (i*numGap);
                 int digit = Integer.parseInt(scoreStr.substring(i, i+1));
                 canvas.drawBitmap(image[digit], xLocn, posY, null);
             }

@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -46,6 +47,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Explosion explosion;
     private Score score;
 
+    private SoundEffects explosionSE;
+    //private SoundEffects startSE;
     private Bitmap backGndBM, missileBM, playerBM, brickBM, explosionBM, scoreBM;
 
 
@@ -72,14 +75,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         missileBM = BitmapFactory.decodeResource(getResources(), R.drawable.missile);
         brickBM = BitmapFactory.decodeResource(getResources(), R.drawable.brick);
         explosionBM = BitmapFactory.decodeResource(getResources(), R.drawable.explosion);
-        scoreBM = BitmapFactory.decodeResource(getResources(), R.drawable.score);
+        scoreBM = BitmapFactory.decodeResource(getResources(), R.drawable.allnumber);
+
+        explosionSE = new SoundEffects(getContext(), R.raw.explosion);
+        //startSE = new SoundEffects(getContext(), R.raw.start);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         backGround = new BackGround(backGndBM, GamePanel.MOVE_SPEED);
         player = new Player(playerBM, startPoint.x, startPoint.y, 65, 25, 3);
-        score = new Score(scoreBM, BackGround.WIDTH-220, 30, 30, 50, 6, 0);
+        score = new Score(scoreBM, BackGround.WIDTH-150, 27, 30, 50, 5, -3);
         scoreStartTime =System.nanoTime();
         smokeStartTime =System.nanoTime();
         missileStartTime =System.nanoTime();
@@ -125,6 +131,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             player.setGoingUp(true);
             if (!player.isCollided() && !player.isPlaying()) {
                 if (System.nanoTime()-restartTime >= 0) {
+                    //startSE.play();
                     player.setPlaying(true);
                 }
             }
@@ -142,7 +149,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
 
         if (player == null) return;
-
         if (explosion != null) explosion.update();
 
         if (player.isPlaying()) {
@@ -210,14 +216,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         } else {
             // player not playing... why...
             if(player.isCollided()) {
-
                 if (explosion == null) {
                     explosion = new Explosion(explosionBM, player.getX(), player.getY()-player.getWidth()/2, 100, 100, 5, 25);
                     restartTime = System.nanoTime() + GameObject.MS*3000;
                 } else if (explosion.animation.isPlayedOnce()) {
                     newGame();
                 }
-
             } else if (!gameSetup) {
                 newGame();
             }
@@ -225,7 +229,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void updateTopBorder(){
-
         // If off screen then remove & replace.
         for (int i = 0; i < topBorders.size(); i++) {
             // Check if border is off the screen.
@@ -255,7 +258,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void updateBotBorder(){
-
         // If off screen then remove & replace.
         for (int i = 0; i < botBorders.size(); i++) {
             // Check if border is off the screen.
@@ -271,7 +273,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         // Update borders... and check for collisions...
         for (int i = 0; i < botBorders.size(); i++) {
-
             botBorders.get(i).update();
 
             // Check to see if the player has collided with the border.  Bang!
@@ -291,7 +292,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             final int savedState = canvas.save();
             canvas.scale(scaleScreenX, scaleScreenY);
             backGround.draw(canvas);
-
 
             if (!player.isCollided()) player.draw(canvas);
 
@@ -342,14 +342,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if(objA == null || objB == null) return false;
 
         if (Rect.intersects(objA.getRectangle(), objB.getRectangle())) {
+            explosionSE.play();
             return true;
         }
-
         return false;
     }
 
     public void newGame(){
-
         topBorders.clear();
         botBorders.clear();
         missiles.clear();
@@ -357,14 +356,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         // Reset player values.
         player.reset(startPoint);
-        explosion = null;
+        if (explosion != null) {
+            explosion = null;
+            explosionSE.stop();
+        }
+        //startSE.stop();
 
         // Calculate how many brick widths are needed... plus a couple of extra.
-        int numBricks = (int)(BackGround.WIDTH/BRCK_WIDTH) + 10;
+        int numBricks = BackGround.WIDTH/BRCK_WIDTH + 10;
         Border border;
 
         for (int i = 0; i < numBricks; i++) {
-
             // Create Top bricks and add in turn.
             border = new Border(brickBM, i*BRCK_WIDTH, 0, BRCK_WIDTH, STD_BDR_HT);
             topBorders.add(border);
@@ -377,22 +379,25 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void drawText(Canvas canvas){
-
         Paint paint = new Paint();
+        paint.setTextSize(40);
+        paint.setColor(Color.RED);
+        paint.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD_ITALIC));
+        canvas.drawText("Island Hopper", 120, 100, paint);
+
         paint.setTextSize(40);
         paint.setColor(Color.BLACK);
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        canvas.drawText("PRESS TO START", BackGround.WIDTH/2-50, BackGround.HEIGHT/2, paint);
+        canvas.drawText("Press To Start", BackGround.WIDTH/2-50, BackGround.HEIGHT/2, paint);
 
         paint.setTextSize(30);
         canvas.drawText("Press and hold to fly up.", BackGround.WIDTH/2-50, BackGround.HEIGHT/2+30, paint);
         canvas.drawText("Release to fly down.", BackGround.WIDTH/2-50, BackGround.HEIGHT/2+60, paint);
-
     }
+
     public boolean isGameSetup() {
         return gameSetup;
     }
-
     public void setGameSetup(boolean gameSetup) {
         this.gameSetup = gameSetup;
     }

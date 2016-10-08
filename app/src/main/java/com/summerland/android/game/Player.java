@@ -9,7 +9,6 @@ import android.graphics.Point;
  */
 public class Player extends GameObject {
     private int score = 0;
-    //private double dyA = 0.0;
     private boolean goingUp = false, playing = false, collided = false;
     private Animation animation = new Animation();
 
@@ -48,7 +47,7 @@ public class Player extends GameObject {
         if (elapsed > ELAPSED_MS) {
             score++;
             startTime = System.nanoTime();
-            //System.out.println("Players Score: " +  score);
+            // System.out.println("Players Score: " +  score);
         }
 
         animation.update();
@@ -72,17 +71,23 @@ public class Player extends GameObject {
 
     public int getScore(){ return score; }
     public boolean isPlaying() { return playing; }
-    public void setPlaying(boolean playing) { this.playing = playing; }
+
+    public void setPlaying(boolean playing) {
+        if (playing) score = 0;
+        this.playing = playing;
+    }
+
     public void reset(Point point) {
-        score = 0;
         x = point.x;
         y = point.y;
-        score = 0;
+        //score = 0;
         dy = 0;
         goingUp = false;
         playing = false;
         collided = false;
     }
+
+    public void setScore(int score) { this.score = score; }
 
     public boolean isCollided() {
         return collided;
