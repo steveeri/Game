@@ -52,12 +52,13 @@ public class MainThread extends Thread {
             timeMillis = (System.nanoTime() - startTime)/1000000;
             waitTime = targetTime - timeMillis;
 
-            try {
-                MainThread.sleep(waitTime);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (waitTime >= 0) {
+                try {
+                    MainThread.sleep(waitTime);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-
             //totalTime += System.nanoTime() - startTime;
             //frameCount++;
             //if (frameCount == FPS) {

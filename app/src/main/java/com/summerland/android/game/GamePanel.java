@@ -31,7 +31,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private static float scaleScreenX, scaleScreenY;
     private Point startPoint;
     private long smokeStartTime =0, missileStartTime = 0, restartTime = 0, scoreStartTime = 0;
-    private boolean gameSetup = false;
+    private boolean gameSetup = false, playerHighScored = false;
     private Random rand = new Random();
 
     private MainThread thread;
@@ -45,8 +45,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private Score score;
 
     private SoundEffects explosionSE;
-    //private SoundEffects startSE;
+    private SoundEffects startSE;
     private Bitmap backGndBM, missileBM, playerBM, brickBM, explosionBM, scoreBM;
+
+    private LocalData localData;
 
 
     public GamePanel(Context context){
@@ -75,7 +77,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         scoreBM = BitmapFactory.decodeResource(getResources(), R.drawable.allnumber);
 
         explosionSE = new SoundEffects(getContext(), R.raw.explosion);
-        //startSE = new SoundEffects(getContext(), R.raw.start);
+        startSE = new SoundEffects(getContext(), R.raw.start);
+
+        // Read / write to persistent data store.
+        localData = new LocalData(context);
+        localData.retrieveHighScore();  // read high score from file.
     }
 
     @Override
@@ -128,7 +134,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             player.setGoingUp(true);
             if (!player.isCollided() && !player.isPlaying()) {
                 if (System.nanoTime()-restartTime >= 0) {
-                    //startSE.play();
                     player.setPlaying(true);
                 }
             }
@@ -351,6 +356,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         missiles.clear();
         smokePuffs.clear();
 
+        playerHighScored = false;
+        // Better check if player has highest score...
+        if (player.getScore() > localData.getHighScore()) {
+            playerHighScored = true;
+            localData.saveHighScore(player.getScore());
+            startSE.play();
+        }
+
         // Reset player values.
         player.reset(startPoint);
         if (explosion != null) {
@@ -375,21 +388,33 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         gameSetup = true;
     }
 
-    public void drawText(Canvas canvas){
+    public void drawText(Canvas canvas) {
         Paint paint = new Paint();
         paint.setTextSize(40);
         paint.setColor(Color.RED);
         paint.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD_ITALIC));
         canvas.drawText("Island Hopper", 120, 100, paint);
 
-        paint.setTextSize(40);
-        paint.setColor(Color.BLACK);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        canvas.drawText("Press To Start", BackGround.WIDTH/2-50, BackGround.HEIGHT/2, paint);
+        paint.setTextSize(25);
+        paint.setColor(Color.GRAY);
+        paint.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD_ITALIC));
+        canvas.drawText("High Score: " + localData.getHighScore(), 130, 132, paint);
 
-        paint.setTextSize(30);
-        canvas.drawText("Press and hold to fly up.", BackGround.WIDTH/2-50, BackGround.HEIGHT/2+30, paint);
-        canvas.drawText("Release to fly down.", BackGround.WIDTH/2-50, BackGround.HEIGHT/2+60, paint);
+        if (playerHighScored) {
+            paint.setTextSize(100);
+            paint.setColor(Color.BLUE);
+            paint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD_ITALIC));
+            canvas.drawText("W I N N E R", 100, BackGround.HEIGHT / 2 + 50, paint);
+        } else {
+            paint.setTextSize(40);
+            paint.setColor(Color.BLACK);
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            canvas.drawText("Press To Start", BackGround.WIDTH / 2, BackGround.HEIGHT / 2, paint);
+
+            paint.setTextSize(30);
+            canvas.drawText("Press and hold to fly up.", BackGround.WIDTH / 2, BackGround.HEIGHT / 2 + 30, paint);
+            canvas.drawText("Release to fly down.", BackGround.WIDTH / 2, BackGround.HEIGHT / 2 + 60, paint);
+        }
     }
 
     //public boolean isGameSetup() { return gameSetup; }
