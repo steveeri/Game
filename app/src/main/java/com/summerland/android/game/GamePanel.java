@@ -111,6 +111,23 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
 
+        try {
+            backGround = null;
+            player = null;
+            score = null;
+            smokePuffs = null;
+            missiles = null;
+            topBorders = null;
+            botBorders = null;
+            explosionSE.stop();
+            explosionSE = null;
+            startSE.stop();
+            startSE = null;
+            localData = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         int loop = 0;
 
         while (thread != null && loop++ < 1000) {

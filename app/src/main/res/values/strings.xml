@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Game</string>
+    <string name="app_name">Island Hopper</string>
     <string name="saved_high_score">SAVED_HIGH_SCORE</string>
     <string name="preference_file_key">com.summerland.game.PREFERENCE_FILE_KEY</string>
     <integer name="high_score_default">200</integer>
