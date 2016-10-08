@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 /**
- * Created by steve on 01/10/16.
+ * BackGround class, Created by steve on 01/10/16.
  */
 public class BackGround {
 
@@ -14,11 +14,8 @@ public class BackGround {
     private Bitmap image;
     private int x, y, dx;
 
-    public BackGround(Bitmap res){
-        image = res;
-    }
-
     public BackGround(Bitmap res, int vector) {
+        y = 0;
         image = res;
         dx = vector;
     }
@@ -33,8 +30,6 @@ public class BackGround {
         if (x < 0) canvas.drawBitmap(image, x+BackGround.WIDTH, y, null);
     }
 
-    public void setVector(int dx){
-        this.dx = dx;
-    }
+    //public void setVector(int dx){ this.dx = dx; }
 }
 

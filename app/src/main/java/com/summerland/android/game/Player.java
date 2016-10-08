@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 
 /**
- * Created by steve on 01/10/16.
+ * Player class, Created by steve on 01/10/16.
  */
 public class Player extends GameObject {
     private int score = 0;
@@ -33,12 +33,12 @@ public class Player extends GameObject {
         startTime = System.nanoTime();
     }
 
-    public void setGoingUp(boolean goingUp) {
-        this.goingUp = goingUp;
-    }
-
     public boolean isGoingUp() {
         return this.goingUp;
+    }
+
+    public void setGoingUp(boolean goingUp) {
+        this.goingUp = goingUp;
     }
 
     @Override
@@ -87,13 +87,11 @@ public class Player extends GameObject {
         collided = false;
     }
 
-    public void setScore(int score) { this.score = score; }
-
     public boolean isCollided() {
         return collided;
     }
-
     public void setCollided(boolean collided) {
         this.collided = collided;
     }
+    //public void setScore(int score) { this.score = score; }
 }

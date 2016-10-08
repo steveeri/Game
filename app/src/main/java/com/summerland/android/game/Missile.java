@@ -3,10 +3,8 @@ package com.summerland.android.game;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import java.util.Random;
-
 /**
- * Created by steve on 01/10/16.
+ * Missile class, Created by steve on 01/10/16.
  */
 public class Missile extends GameObject {
 
@@ -44,7 +42,9 @@ public class Missile extends GameObject {
     public void draw(Canvas canvas) {
         try {
             canvas.drawBitmap(animation.getImage(), x, y, null);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -52,11 +52,6 @@ public class Missile extends GameObject {
         return width-10;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
+    //public int getSpeed() { return speed; }
+    //public void setSpeed(int speed) { this.speed = speed; }
 }

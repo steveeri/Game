@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
  * Created by steve on 30/09/16.
  */
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
@@ -27,14 +27,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static final int MOVE_SPEED = -5;
     public static final int BRCK_WIDTH = 20;
     public static final int STD_BDR_HT = 10;
-
-    private Point startPoint;
-
     private static int screenWidth, screenHeight;
     private static float scaleScreenX, scaleScreenY;
+    private Point startPoint;
     private long smokeStartTime =0, missileStartTime = 0, restartTime = 0, scoreStartTime = 0;
-    private int maxBorderH = 0, minBorderH = 0, progressDemon = 20;
-    private boolean topDown = true, botDown = true, gameSetup = false;
+    private boolean gameSetup = false;
     private Random rand = new Random();
 
     private MainThread thread;
@@ -89,10 +86,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         scoreStartTime =System.nanoTime();
         smokeStartTime =System.nanoTime();
         missileStartTime =System.nanoTime();
-        smokePuffs = new ArrayList<Smoke>();
-        missiles = new ArrayList<Missile>();
-        topBorders = new ArrayList<Border>();
-        botBorders = new ArrayList<Border>();
+        smokePuffs = new ArrayList<>();
+        missiles = new ArrayList<>();
+        topBorders = new ArrayList<>();
+        botBorders = new ArrayList<>();
 
         // setup and start thread object.
         thread = new MainThread(getHolder(), this);
@@ -395,10 +392,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawText("Release to fly down.", BackGround.WIDTH/2-50, BackGround.HEIGHT/2+60, paint);
     }
 
-    public boolean isGameSetup() {
-        return gameSetup;
-    }
-    public void setGameSetup(boolean gameSetup) {
-        this.gameSetup = gameSetup;
-    }
+    //public boolean isGameSetup() { return gameSetup; }
+    //public void setGameSetup(boolean gameSetup) { this.gameSetup = gameSetup; }
 }

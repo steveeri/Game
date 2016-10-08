@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 /**
- * Created by steve on 05/10/16.
+ * Border class, Created by steve on 05/10/16.
  */
 public class Border extends GameObject {
 
@@ -31,6 +31,8 @@ public class Border extends GameObject {
     public void draw(Canvas canvas) {
         try {
             canvas.drawBitmap(image, x, y, null);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 /**
- * Created by steve on 06/10/16.
+ * Explosion class, Created by steve on 06/10/16.
  */
 public class Explosion extends GameObject {
 
@@ -33,7 +33,6 @@ public class Explosion extends GameObject {
         animation.setDelay(ANIM_DELAY);
         startTime = System.nanoTime();
     }
-
 
     @Override
     public void update() {

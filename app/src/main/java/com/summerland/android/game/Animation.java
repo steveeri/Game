@@ -3,7 +3,7 @@ package com.summerland.android.game;
 import android.graphics.Bitmap;
 
 /**
- * Created by steve on 01/10/16.
+ * Animation class, Created by steve on 01/10/16.
  */
 public class Animation {
 
@@ -38,7 +38,8 @@ public class Animation {
     }
 
     public void setDelay(long d) { delay = d; }
-    public void setFrame(int pos) { currentFrame = pos; }
-    public int getFrame() { return currentFrame; }
+
+    //public void setFrame(int pos) { currentFrame = pos; }
+    //public int getFrame() { return currentFrame; }
     public boolean isPlayedOnce() { return playedOnce; }
 }

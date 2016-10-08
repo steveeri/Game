@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 /**
- * Created by steve on 06/10/16.
+ * Score class, Created by steve on 06/10/16.
  */
 public class Score extends GameObject {
 
@@ -60,7 +60,9 @@ public class Score extends GameObject {
                 int digit = Integer.parseInt(scoreStr.substring(i, i+1));
                 canvas.drawBitmap(image[digit], xLocn, posY, null);
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

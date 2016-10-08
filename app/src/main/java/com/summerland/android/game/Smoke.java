@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 /**
- * Created by steve on 01/10/16.
+ * Smoke class, Created by steve on 01/10/16.
  */
 public class Smoke extends GameObject {
 
