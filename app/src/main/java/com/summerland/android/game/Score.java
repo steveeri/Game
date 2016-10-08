@@ -56,15 +56,12 @@ public class Score extends GameObject {
 
         try {
             for (int i = 0; i < numDigits; i++) {
-                int xLocn = posX + (i*width) + (i*numGap);
+                int xLoc = posX + (i * width) + (i * numGap);
                 int digit = Integer.parseInt(scoreStr.substring(i, i+1));
-                canvas.drawBitmap(image[digit], xLocn, posY, null);
+                canvas.drawBitmap(image[digit], xLoc, posY, null);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 }

@@ -25,7 +25,7 @@ import java.util.Random;
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public static final int MOVE_SPEED = -5;
-    public static final int BRCK_WIDTH = 20;
+    public static final int BRICK_WIDTH = 20;
     public static final int STD_BDR_HT = 10;
     private static int screenWidth, screenHeight;
     private static float scaleScreenX, scaleScreenY;
@@ -231,9 +231,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             // Check if border is off the screen.
             if (topBorders.get(i).getX() < Border.OFFSCREEN_MARGIN) {
                 // Get X position of last brick in the arrayList... before modifying array size.
-                int newBrickXPos = topBorders.get(topBorders.size() - 1).getX() + BRCK_WIDTH;
+                int newBrickXPos = topBorders.get(topBorders.size() - 1).getX() + BRICK_WIDTH;
                 topBorders.remove(i);
-                topBorders.add(new Border(brickBM, newBrickXPos, 0, BRCK_WIDTH, STD_BDR_HT));
+                topBorders.add(new Border(brickBM, newBrickXPos, 0, BRICK_WIDTH, STD_BDR_HT));
             } else {
                 break;
             }
@@ -260,9 +260,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             // Check if border is off the screen.
             if (botBorders.get(i).getX() < Border.OFFSCREEN_MARGIN) {
                 // Get X position of last brick in the arrayList... before modifying array size.
-                int newBrickXPos = botBorders.get(botBorders.size() - 1).getX() + BRCK_WIDTH;
+                int newBrickXPos = botBorders.get(botBorders.size() - 1).getX() + BRICK_WIDTH;
                 botBorders.remove(i);
-                botBorders.add(new Border(brickBM, newBrickXPos, BackGround.HEIGHT-STD_BDR_HT, BRCK_WIDTH, STD_BDR_HT+100));
+                botBorders.add(new Border(brickBM, newBrickXPos, BackGround.HEIGHT - STD_BDR_HT, BRICK_WIDTH, STD_BDR_HT + 100));
             } else {
                 break;
             }
@@ -360,16 +360,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //startSE.stop();
 
         // Calculate how many brick widths are needed... plus a couple of extra.
-        int numBricks = BackGround.WIDTH/BRCK_WIDTH + 10;
+        int numBricks = BackGround.WIDTH / BRICK_WIDTH + 10;
         Border border;
 
         for (int i = 0; i < numBricks; i++) {
             // Create Top bricks and add in turn.
-            border = new Border(brickBM, i*BRCK_WIDTH, 0, BRCK_WIDTH, STD_BDR_HT);
+            border = new Border(brickBM, i * BRICK_WIDTH, 0, BRICK_WIDTH, STD_BDR_HT);
             topBorders.add(border);
 
             // Create Bot bricks and add in turn.
-            border = new Border(brickBM, i*BRCK_WIDTH, BackGround.HEIGHT-STD_BDR_HT, BRCK_WIDTH, STD_BDR_HT+100);
+            border = new Border(brickBM, i * BRICK_WIDTH, BackGround.HEIGHT - STD_BDR_HT, BRICK_WIDTH, STD_BDR_HT + 100);
             botBorders.add(border);
         }
         gameSetup = true;
