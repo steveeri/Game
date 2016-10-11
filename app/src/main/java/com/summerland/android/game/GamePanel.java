@@ -238,7 +238,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             if(player.isCollided()) {
                 if (explosion == null) {
                     explosion = new Explosion(explosionBM, player.getX(), player.getY()-player.getWidth()/2, 100, 100, 5, 25);
-                    restartTime = System.nanoTime() + GameObject.MS*3000;
+                    restartTime = System.nanoTime() + GameObject.MS * 5000;
                 } else if (explosion.animation.isPlayedOnce()) {
                     newGame();
                 }
@@ -432,6 +432,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             paint.setTextSize(30);
             canvas.drawText("Press and hold to fly up.", BackGround.WIDTH / 2, BackGround.HEIGHT / 2 + 30, paint);
             canvas.drawText("Release to fly down.", BackGround.WIDTH / 2, BackGround.HEIGHT / 2 + 60, paint);
+
+            if (System.nanoTime() - restartTime < 0) {
+                paint.setTextSize(20);
+                paint.setColor(Color.RED);
+                int time = -(int) ((System.nanoTime() - restartTime) / GameObject.MS / 1000);
+                canvas.drawText("Get ready to fly again in: " + time, BackGround.WIDTH / 2, BackGround.HEIGHT / 2 + 90, paint);
+            }
         }
     }
 
