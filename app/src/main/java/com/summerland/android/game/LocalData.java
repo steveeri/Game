@@ -2,6 +2,7 @@ package com.summerland.android.game;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 /**
  * LocalData class, Created by steve on 08/10/16.
@@ -46,6 +47,9 @@ public class LocalData {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(context.getString(R.string.saved_high_score), this.highScore);
             editor.apply();
+
+            // present toast...
+            Toast.makeText(this.context, "High score updated: " + this.highScore, Toast.LENGTH_LONG).show();
         }
     }
 }
