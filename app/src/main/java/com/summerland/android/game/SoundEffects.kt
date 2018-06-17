@@ -1,0 +1,27 @@
+package com.summerland.android.game
+
+import android.content.Context
+import android.media.MediaPlayer
+
+/**
+ * SoundEffects handler, Created by steve on 08/10/16..
+ */
+internal class SoundEffects(private val context: Context, private val audioFile: Int) {
+
+    private var mediaPlayer: MediaPlayer? = null
+
+    fun play() {
+        mediaPlayer = MediaPlayer.create(this.context, this.audioFile)
+        mediaPlayer!!.start()
+    }
+
+    fun stop() {
+        if (mediaPlayer != null) {
+            if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
+            mediaPlayer!!.reset()
+            mediaPlayer!!.release()
+        }
+    }
+
+    fun isPlaying() = mediaPlayer!!.isPlaying
+}
