@@ -12,7 +12,7 @@ public class Score extends GameObject {
     private int numDigits = 1;
     private int numGap = 0;
 
-    public Score(Bitmap res, int posX, int posY, int sizeW, int sizeH, int digits, int gap) {
+    Score(Bitmap res, int posX, int posY, int sizeW, int sizeH, int digits, int gap) {
 
         x = posX;
         y = posY;
@@ -46,12 +46,12 @@ public class Score extends GameObject {
 
     public void draw(Canvas canvas, int posX, int posY, long score) {
 
-        String scoreStr = "" + score;
+        StringBuilder scoreStr = new StringBuilder("" + score);
 
         if (scoreStr.length() > numDigits) {
-            scoreStr = scoreStr.substring(scoreStr.length()-numDigits, scoreStr.length());
+            scoreStr = new StringBuilder(scoreStr.substring(scoreStr.length() - numDigits, scoreStr.length()));
         } else if (scoreStr.length() < numDigits) {
-            while (scoreStr.length() < numDigits) scoreStr = "0" + scoreStr;
+            while (scoreStr.length() < numDigits) scoreStr.insert(0, "0");
         }
 
         try {

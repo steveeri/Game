@@ -8,7 +8,7 @@ import android.graphics.Canvas;
  */
 public class Explosion extends GameObject {
 
-    public Explosion(Bitmap res, int posX, int posY, int sizeW, int sizeH, int columns, int numFrames){
+    Explosion(Bitmap res, int posX, int posY, int sizeW, int sizeH, int columns, int numFrames) {
 
         x = posX;
         y = posY;

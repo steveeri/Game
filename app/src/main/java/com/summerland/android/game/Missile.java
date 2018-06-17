@@ -10,7 +10,7 @@ public class Missile extends GameObject {
 
     private int speed;
 
-    public Missile(Bitmap res, int posX, int posY, int sizeW, int sizeH, int score, int numFrames) {
+    Missile(Bitmap res, int posX, int posY, int sizeW, int sizeH, int score, int numFrames) {
         x = posX;
         y = posY;
         width = sizeW;

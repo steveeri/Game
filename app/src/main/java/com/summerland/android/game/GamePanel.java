@@ -27,7 +27,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static final int MOVE_SPEED = -5;
     public static final int BRICK_WIDTH = 20;
     public static final int STD_BDR_HT = 10;
-    private static int screenWidth, screenHeight;
     private static float scaleScreenX, scaleScreenY;
     private Point startPoint;
     private long smokeStartTime =0, missileStartTime = 0, restartTime = 0, scoreStartTime = 0;
@@ -62,8 +61,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         // Calculate required canvas scale factors.
         DisplayMetrics dm = getResources().getDisplayMetrics();
-        screenWidth  = dm.widthPixels;
-        screenHeight = dm.heightPixels;
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
         scaleScreenX = screenWidth / (float)BackGround.WIDTH;
         scaleScreenY = screenHeight / (float)BackGround.HEIGHT;
         startPoint = new Point(100, BackGround.HEIGHT/2);
@@ -142,6 +141,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -229,7 +229,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (collision(missiles.get(i), player)) {
                     missiles.remove(i);
                     player.setPlaying(false);
-                    player.setCollided(true);
+                    player.setCollided();
                     break;
                 }
             }
@@ -270,7 +270,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             // Check to see if the player has collided with the border.  Bang!
             if (collision(topBorders.get(i), player)) {
                 player.setPlaying(false);
-                player.setCollided(true);
+                player.setCollided();
                 break;
             }
         }
@@ -298,7 +298,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             // Check to see if the player has collided with the border.  Bang!
             if (collision(botBorders.get(i), player)) {
                 player.setPlaying(false);
-                player.setCollided(true);
+                player.setCollided();
                 break;
             }
         }

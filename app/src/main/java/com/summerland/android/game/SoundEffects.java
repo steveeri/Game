@@ -6,23 +6,23 @@ import android.media.MediaPlayer;
 /**
  * SoundEffects handler, Created by steve on 08/10/16..
  */
-public class SoundEffects {
+class SoundEffects {
 
-    protected MediaPlayer mediaPlayer;
-    protected Context context;
-    protected int audioFile;
+    private MediaPlayer mediaPlayer;
+    private Context context;
+    private int audioFile;
 
-    public SoundEffects(Context context, int audioFile) {
+    SoundEffects(Context context, int audioFile) {
         this.context = context;
         this.audioFile = audioFile;
     }
 
-    public void play() {
+    void play() {
         mediaPlayer = MediaPlayer.create(this.context, this.audioFile);
         mediaPlayer.start();
     }
 
-    public void stop() {
+    void stop() {
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying()) mediaPlayer.stop();
             mediaPlayer.reset();

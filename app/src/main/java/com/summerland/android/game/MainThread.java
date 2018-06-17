@@ -8,13 +8,13 @@ import android.view.SurfaceHolder;
  */
 public class MainThread extends Thread {
 
-    public static final int FPS = 30;
+    private static final int FPS = 30;
     //private double averageFPS;
     private final SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;
     private boolean running;
 
-    public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel){
+    MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel) {
         super();
         this.surfaceHolder = surfaceHolder;
         this.gamePanel = gamePanel;
@@ -70,12 +70,11 @@ public class MainThread extends Thread {
         }
     }
 
-    public void setRunning(boolean run) {
+    void setRunning(boolean run) {
         running = run;
     }
 
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-
 }

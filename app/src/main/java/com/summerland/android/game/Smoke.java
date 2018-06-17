@@ -9,10 +9,10 @@ import android.graphics.Paint;
  */
 public class Smoke extends GameObject {
 
-    public static final int DIA = 4;
-    public static final int UP_DIA = 5;
+    private static final int DIA = 4;
+    private static final int UP_DIA = 5;
 
-    public Smoke(int x, int y){
+    Smoke(int x, int y) {
         this.x = x;
         this.y = y;
     }

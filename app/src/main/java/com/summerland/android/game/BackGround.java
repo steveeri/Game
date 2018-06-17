@@ -8,13 +8,13 @@ import android.graphics.Canvas;
  */
 public class BackGround {
 
-    public static final int WIDTH = 856;
-    public static final int HEIGHT = 480;
+    static final int WIDTH = 856;
+    static final int HEIGHT = 480;
 
     private Bitmap image;
     private int x, y, dx;
 
-    public BackGround(Bitmap res, int vector) {
+    BackGround(Bitmap res, int vector) {
         y = 0;
         image = res;
         dx = vector;

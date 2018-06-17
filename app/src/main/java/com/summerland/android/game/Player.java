@@ -12,7 +12,7 @@ public class Player extends GameObject {
     private boolean goingUp = false, playing = false, collided = false;
     private Animation animation = new Animation();
 
-    public Player(Bitmap res, int posX, int posY, int sizeW, int sizeH, int numFrames) {
+    Player(Bitmap res, int posX, int posY, int sizeW, int sizeH, int numFrames) {
         x = posX;
         y = posY;
         dy = 0;
@@ -33,11 +33,11 @@ public class Player extends GameObject {
         startTime = System.nanoTime();
     }
 
-    public boolean isGoingUp() {
+    boolean isGoingUp() {
         return this.goingUp;
     }
 
-    public void setGoingUp(boolean goingUp) {
+    void setGoingUp(boolean goingUp) {
         this.goingUp = goingUp;
     }
 
@@ -52,12 +52,8 @@ public class Player extends GameObject {
 
         animation.update();
 
-        if (goingUp) {
-            dy -= 1;
-        } else {
-            dy += 1;
-        }
-
+        if (goingUp) dy -= 1;
+        else dy += 1;
         if (dy > 14) dy = Player.MAX_GRAVITY;
         if (dy < -14) dy = -Player.MAX_GRAVITY;
 
@@ -69,15 +65,20 @@ public class Player extends GameObject {
         canvas.drawBitmap(animation.getImage(), x, y, null);
     }
 
-    public int getScore(){ return score; }
-    public boolean isPlaying() { return playing; }
+    int getScore() {
+        return score;
+    }
 
-    public void setPlaying(boolean playing) {
+    boolean isPlaying() {
+        return playing;
+    }
+
+    void setPlaying(boolean playing) {
         if (playing) score = 0;
         this.playing = playing;
     }
 
-    public void reset(Point point) {
+    void reset(Point point) {
         x = point.x;
         y = point.y;
         //score = 0;
@@ -87,11 +88,11 @@ public class Player extends GameObject {
         collided = false;
     }
 
-    public boolean isCollided() {
+    boolean isCollided() {
         return collided;
     }
-    public void setCollided(boolean collided) {
-        this.collided = collided;
+
+    void setCollided() {
+        this.collided = true;
     }
-    //public void setScore(int score) { this.score = score; }
 }

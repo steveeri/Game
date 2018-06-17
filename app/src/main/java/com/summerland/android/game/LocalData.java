@@ -7,25 +7,18 @@ import android.widget.Toast;
 /**
  * LocalData class, Created by steve on 08/10/16.
  */
-public class LocalData {
+class LocalData {
 
-    SharedPreferences sharedPref;
-    Context context;
-    int savedHighScore = 0, highScore = 0;
+    private SharedPreferences sharedPref;
+    private Context context;
+    private int savedHighScore = 0, highScore = 0;
 
-    public LocalData(final Context context) {
+    LocalData(final Context context) {
         this.context = context;
         this.sharedPref = context.getSharedPreferences(context.getString(R.string.saved_high_score), Context.MODE_PRIVATE);
     }
 
-/*
-    public LocalData(final Context context, final String prefFileName) {
-        this.context = context;
-        this.sharedPref = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
-    }
-*/
-
-    public void retrieveHighScore() {
+    void retrieveHighScore() {
         if (sharedPref != null) {
             int defaultHighScore = context.getResources().getInteger(R.integer.high_score_default);
             savedHighScore = sharedPref.getInt(context.getString(R.string.saved_high_score), defaultHighScore);
@@ -33,16 +26,12 @@ public class LocalData {
         }
     }
 
-    public int getHighScore() {
-        return this.highScore;
+    int getHighScore() {
+        return highScore;
     }
 
-    public void setHighScore(int highScore) {
+    void saveHighScore(int highScore) {
         this.highScore = highScore;
-    }
-
-    public void saveHighScore(int highScore) {
-        setHighScore(highScore);
         if (highScore > savedHighScore && sharedPref != null) {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(context.getString(R.string.saved_high_score), this.highScore);

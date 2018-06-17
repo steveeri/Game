@@ -10,7 +10,7 @@ public class Border extends GameObject {
 
     private Bitmap image;
 
-    public Border(Bitmap res, int posX, int posY, int sizeW, int sizeH){
+    Border(Bitmap res, int posX, int posY, int sizeW, int sizeH) {
 
         x = posX;
         y = posY;
