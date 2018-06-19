@@ -94,8 +94,8 @@ class GamePanel(context: Context) : SurfaceView(context), SurfaceHolder.Callback
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-        explosionSE = SoundEffects(context, R.raw.explosion)
-        startSE = SoundEffects(context, R.raw.start)
+        //explosionSE = SoundEffects(context, R.raw.explosion)
+        //startSE = SoundEffects(context, R.raw.start)
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {

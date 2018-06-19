@@ -33,7 +33,11 @@ internal class LocalData(private val context: Context) {
             editor.apply()
 
             // present toast...
-            Toast.makeText(this.context, "High score updated: " + this.highScore, Toast.LENGTH_LONG).show()
+            try {
+                Toast.makeText(this.context, "High score updated: " + this.highScore, Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                // do nothing
+            }
         }
     }
 }

@@ -17,9 +17,15 @@ internal class SoundEffects(private val context: Context, private val audioFile:
 
     fun stop() {
         if (mediaPlayer != null) {
-            if (mediaPlayer!!.isPlaying) mediaPlayer!!.stop()
-            mediaPlayer!!.reset()
-            mediaPlayer!!.release()
+            try {
+                if (mediaPlayer!!.isPlaying) {
+                    mediaPlayer!!.stop()
+                    mediaPlayer!!.reset()
+                    mediaPlayer!!.release()
+                }
+            } catch (e: Exception) {
+                //e.printStackTrace()
+            }
         }
     }
 

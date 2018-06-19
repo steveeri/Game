@@ -70,7 +70,7 @@ class Player internal constructor(res: Bitmap, posX: Int, posY: Int, sizeW: Int,
     internal fun reset(point: Point) {
         x = point.x
         y = point.y
-        //score = 0;
+        score = 0
         dy = 0
         isGoingUp = false
         playing = false
