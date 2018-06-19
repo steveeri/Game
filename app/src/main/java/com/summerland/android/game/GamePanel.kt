@@ -96,6 +96,12 @@ class GamePanel(context: Context) : SurfaceView(context), SurfaceHolder.Callback
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         //explosionSE = SoundEffects(context, R.raw.explosion)
         //startSE = SoundEffects(context, R.raw.start)
+        // If local data has ben lost during backgrounding then re-establish persistent data store.
+        if (localData == null) {
+            localData = LocalData(context)
+            localData!!.retrieveHighScore()
+            newGame()
+        }
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
@@ -287,7 +293,7 @@ class GamePanel(context: Context) : SurfaceView(context), SurfaceHolder.Callback
         }
     }
 
-    //@SuppressLint("MissingSuperCall")
+    @SuppressLint("MissingSuperCall")
     override fun draw(canvas: Canvas?) {
         if (canvas != null) {
             val savedState = canvas.save()
@@ -412,7 +418,7 @@ class GamePanel(context: Context) : SurfaceView(context), SurfaceHolder.Callback
             }
         } catch (e :Exception) {
             e.printStackTrace()
-            newGame()
+            //newGame()
         }
     }
 
