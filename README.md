@@ -29,7 +29,7 @@ This package consists of all source code as well as a compiled and signed apk (i
 
 ## API Reference
 
-THe graphics library used is the core Android sufaceView canvas - no other third party software included oustide of
+The graphics library used is the core Android sufaceView canvas - no other third party software included oustide of
 
 
 ## Tests
