@@ -1,6 +1,6 @@
 # Island-Hopper
 Arcade style helicopter flying game
-![screenshot image of the game](/images/screenshot-island-hopper.png)
+![screenshot image of the game](screenshot-island-hopper.jpg)
 
 Synopsis
 
